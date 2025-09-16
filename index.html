@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zygimantas: Digital Creative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #b8b8b8;
+            margin-bottom: 30px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 107, 107, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .audio-player::-webkit-media-controls-panel {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-image:hover {
+            transform: scale(1.02);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        .blog-post {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .blog-date {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 200px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item:hover {
+            background: rgba(78, 205, 196, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .contact-item a {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-item a:hover {
+            color: #ff6b6b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b8b8b8;
+        }
+
+        .play-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(69, 183, 209, 0.3);
+            color: #45b7d1;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 5px 5px 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            nav { gap: 15px; }
+            .nav-btn { padding: 10px 20px; font-size: 14px; }
+            .contact-info { flex-direction: column; align-items: center; }
+        }
+
+        /* Floating particles animation */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Zygimantas Snarskis</h1>
+            <p class="subtitle">Digital Creative</p>
+        </header>
+
+        <nav>
+            <button class="nav-btn active" onclick="showSection('audio', this)">Audio Portfolio</button>
+            <button class="nav-btn" onclick="showSection('visual', this)">Interactive Projects</button>
+            <button class="nav-btn" onclick="showSection('about', this)">About Me</button>
+            <button class="nav-btn" onclick="showSection('blog', this)">Thoughts</button>
+            <button class="nav-btn" onclick="showSection('contact', this)">Contact</button>
+        </nav>
+
+        <div id="audio" class="section active">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem;">Audio Portfolio</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Generative Space Music EP</h3>
+                                        <audio class="audio-player" controls>
+                        <source src="assets/GenMuzikaPvz1.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                                        <div class="tag">Generative</div>
+                    <div class="tag">VCV Rack</div>
+                    <div class="tag">Cosmic</div>
+                    <p>A series of cosmic sound experiments meant for a hypothetical space epic. The attached audio file is probably favorite track from the collection. I made it in VCV Rack using old-fashioned generative techniques.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Game jam track</h3>
+                                        <audio class="audio-player" controls>
+                        <source src="assets/gametrack2.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="tag">Ableton Live</div>
+                    <div class="tag">PSX</div>
+                    <div class="tag">Game music</div>
+                    <p>A track I made during a game jam. Inspired by the game's visuals and atmosphere, I decided to try and write a piece of game music that was equal parts modern dance and PSX-era synth nostalgia.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Dream console startup sound</h3>
+                                        <audio class="audio-player" controls>
+                        <source src="assets/startup.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                                        <div class="tag">Ableton Live</div>
+                    <div class="tag">Effects</div>
+                    <div class="tag">Ambient</div>
+                    <p>Taking inspiration from Brian Eno and every older game console simultaneously, I made a quick startup sound, envisioned for a machine lacking physical form.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="visual" class="section">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem;">Interactive Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>RGB Frog</h3>
+                    <!--<p>Custom-built real-time audio visualization tool for analyzing frequency content and waveforms during sound design.</p>-->
+                    <img src="assets/froggame.gif" alt="Frog clicker game" class="project-image">
+                    <div class="tag">LUA</div>
+                    <div class="tag">LOVE 2D</div>
+                    <div class="tag">Framework</div>
+                    <p style="margin-top: 15px; color: #b8b8b8;">A simple clicker game I wrote in LUA using the LÖVE framework. While the code is as simple as it gets, this was a great exercise in adapting to a new programming language and framework, as well as making minimal art assets.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Mandatory Pong Clone</h3>
+                    <!--<p>A barebones pong clone I wrote in LUA using the LÖVE framework. Before rushing into bigger projects, I just had to make a pong clone to get more comfortable with the LÖVE framework, as well as cover some programming basics.</p>-->
+                    <img src="assets/ponggame.gif" alt="Pong clone" class="project-image">
+                    <div class="tag">LUA</div>
+                    <div class="tag">LOVE 2D</div>
+                    <div class="tag">Framework</div>
+                    <p style="margin-top: 15px; color: #b8b8b8;">A barebones pong clone I wrote in LUA using the LÖVE framework. Before rushing into bigger projects, I just had to make a pong clone to get more comfortable with the LÖVE framework, as well as cover some programming basics.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Rectangle Dance</h3>
+                    <!--<p>Web-based interactive music experience demonstrating adaptive composition techniques.</p>-->
+                    <img src="assets/squaresgame.gif" alt="Interactive Demo Screenshot" class="project-image">
+                    <div class="tag">LUA</div>
+                    <div class="tag">LOVE 2D</div>
+                    <div class="tag">Framework</div>
+                    <p style="margin-top: 15px; color: #b8b8b8;">A random square generator I wrote in LUA using the LÖVE framework. While silly on the surface, this project served as a great reminder and practice session for OOP concepts using LUA.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="section">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem;">About Me</h2>
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h3>Passionate Digital Creative</h3>
+                <p style="margin: 20px 0; font-size: 1.1rem; line-height: 1.7;">
+                    Hello and thanks for stopping by! My name is Zygimantas and I love using digital technology to make all kinds of things. Among my favorite things to make are sounds and pieces of music, as well as interactive creations like games and sometimes even hardware. Feel free to contact me if you'd like to work together or just have a chat!
+                </p>
+                
+                <h4 style="margin-top: 30px; margin-bottom: 15px; color: #4ecdc4;">Core Skills</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px;">
+                    <div class="tag" style="background: rgba(255, 107, 107, 0.3); color: #45b7d1;">Music Production</div>
+                    <div class="tag" style="background: rgba(78, 205, 196, 0.3); color: #4ecdc4;">Sound Design</div>
+                    <div class="tag" style="background: rgba(69, 183, 209, 0.3); color: #45b7d1;">Programming</div>
+                    <div class="tag" style="background: rgba(69, 183, 209, 0.3); color: #45b7d1;">Creative Visuals</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="blog" class="section">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem;">Thoughts on Things</h2>
+            
+            <div class="blog-post">
+                <div class="blog-date">September 15, 2025</div>
+                <h3>This seems like a great place for a blog...</h3>
+                <p>I've always wanted to start a blog, but making noise and games are currently my top priority. When the right time comes, this section will be full of my thoughts on things.</p>
+                <a href="#" style="color: #4ecdc4; text-decoration: none;">More →</a>
+            </div>
+        </div>
+
+        <div id="contact" class="section">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem;">Let's Connect!</h2>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <a href="mailto:zsnarskis@proton.me">zsnarskis@proton.me</a>
+                </div>
+                
+                <div class="contact-item">
+                    <h4>Bandcamp</h4>
+                    <a href="https://amberpointsilva.bandcamp.com" target="_blank">Listen to More Work</a>
+                </div>
+                
+                <!--<div class="contact-item">
+                    <h4>LinkedIn</h4>
+                    <a href="https://linkedin.com/in/yourname" target="_blank">Professional Profile</a>
+                </div>-->
+                
+                <div class="contact-item">
+                    <h4>GitHub</h4>
+                    <a href="https://github.com/zygdevs" target="_blank">Code & Projects</a>
+                </div>
+            </div>
+
+            <!--<div class="card" style="max-width: 600px; margin: 40px auto; text-align: center;">
+                <h3 style="margin-bottom: 20px;">Ready to Create Amazing Audio Together?</h3>
+                <button class="play-btn" onclick="window.location.href='mailto:your.email@example.com'">
+                    Get In Touch
+                </button>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Zygimantas Snarskis.</p>
+    </div>
+
+    <script>
+        function showSection(sectionName, clickedButton) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked nav button
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+        }
+
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.width = particle.style.height = Math.random() * 10 + 5 + 'px';
+            particle.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 3000);
+
+        // Add smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize with first section
+            showSection('audio');
+        });
+    </script>
+</body>
+</html>
